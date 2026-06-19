@@ -1,0 +1,12 @@
+# build directories
+build/
+out/
+.cache/
+.ccache/
+
+# editor / IDE
+.vscode/
+
+# python
+__pycache__/
+.venv/
