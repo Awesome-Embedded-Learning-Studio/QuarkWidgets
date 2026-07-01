@@ -17,15 +17,13 @@
 #pragma once
 
 #include "animation.h"
+#include "base/easing.h"
 #include "core/motion_spec.h"
+#include <QEasingCurve>
 #include <qobject.h>
+#include <string>
 
 namespace qw::components {
-
-// Forward declaration
-namespace core {
-struct IMotionSpec;
-}
 
 /**
  * @brief  Timing-based animation interface.
@@ -90,11 +88,57 @@ class QW_EXPORT ICFTimingAnimation : public ICFAbstractAnimation {
      */
     virtual float currentValue() const = 0;
 
+    /**
+     * @brief  Binds this animation to a Material motion preset name.
+     *
+     * @details When set, start() resolves duration and easing from the bound
+     *          IMotionSpec (e.g. "shortEnter" -> 200ms + EmphasizedDecelerate).
+     *          Pass the bare preset name ("shortEnter", "mediumExit", ...); the
+     *          query layer adds the "md.motion." prefix internally.
+     *
+     * @param[in] token  Bare motion preset name.
+     *
+     * @throws None
+     * @note   None
+     * @warning None
+     * @since  0.1
+     * @ingroup ui_components
+     */
+    void setMotionToken(std::string token) { motionToken_ = std::move(token); }
+
   protected:
     qw::core::IMotionSpec* motion_spec_ = nullptr;
     float m_from = 0.0f;
     float m_to = 1.0f;
     int m_elapsed = 0;
+
+    /// Bound motion preset (bare name, e.g. "shortEnter"); empty = use defaults.
+    std::string motionToken_;
+    /// Easing curve resolved from the preset (default-constructed = Linear).
+    QEasingCurve easingCurve_;
+
+    /**
+     * @brief  Resolves duration + easingCurve_ from the motion spec using the
+     *         bound motion token. Subclass start() calls this so MD3 timing
+     *         applies when a token is set; otherwise @p durationMs keeps the
+     *         subclass default and easingCurve_ stays Linear.
+     *
+     * @param[in,out] durationMs  Subclass default duration; overwritten with the
+     *                           spec value when a motion token is bound.
+     *
+     * @throws None
+     * @note   None
+     * @warning None
+     * @since  0.1
+     * @ingroup ui_components
+     */
+    void resolveMotionTiming(int& durationMs) {
+        if (motion_spec_ != nullptr && !motionToken_.empty()) {
+            durationMs = motion_spec_->queryDuration(motionToken_.c_str());
+            easingCurve_ = qw::base::Easing::fromEasingType(static_cast<qw::base::Easing::Type>(
+                motion_spec_->queryEasing(motionToken_.c_str())));
+        }
+    }
 };
 
 } // namespace qw::components
