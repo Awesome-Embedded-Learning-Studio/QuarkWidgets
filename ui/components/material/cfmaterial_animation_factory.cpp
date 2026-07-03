@@ -239,12 +239,11 @@ CFMaterialAnimationFactory::createFadeAnimation(const AnimationDescriptor& desc,
     // Get motion spec from theme
     auto& motionSpec = theme_.motion_spec();
 
-    // Query duration and easing from motion token
-    int duration = motionSpec.queryDuration(desc.motionToken);
-    int easing = motionSpec.queryEasing(desc.motionToken);
-
     // Create fade animation with raw pointer (lifetime guaranteed by theme_)
     auto anim = std::make_unique<CFMaterialFadeAnimation>(&motionSpec, nullptr);
+    // Bind the motion token; the animation resolves MD3 duration + easing from
+    // the spec itself in start(), so no eager query is needed here.
+    anim->setMotionToken(desc.motionToken);
     anim->setRange(desc.fromValue, desc.toValue);
     anim->setTargetFps(targetFps_);
     if (widget) {
@@ -259,10 +258,6 @@ CFMaterialAnimationFactory::createSlideAnimation(const AnimationDescriptor& desc
     // Get motion spec from theme
     auto& motionSpec = theme_.motion_spec();
 
-    // Query duration and easing from motion token
-    int duration = motionSpec.queryDuration(desc.motionToken);
-    int easing = motionSpec.queryEasing(desc.motionToken);
-
     // Determine slide direction from property
     SlideDirection direction = SlideDirection::Up;
     if (std::strcmp(desc.property, "positionX") == 0) {
@@ -271,6 +266,9 @@ CFMaterialAnimationFactory::createSlideAnimation(const AnimationDescriptor& desc
 
     // Create slide animation with raw pointer (lifetime guaranteed by theme_)
     auto anim = std::make_unique<CFMaterialSlideAnimation>(&motionSpec, direction, nullptr);
+    // Bind the motion token; the animation resolves MD3 duration + easing from
+    // the spec itself in start(), so no eager query is needed here.
+    anim->setMotionToken(desc.motionToken);
     anim->setRange(desc.fromValue, desc.toValue);
     anim->setTargetFps(targetFps_);
     if (widget) {
@@ -285,12 +283,11 @@ CFMaterialAnimationFactory::createScaleAnimation(const AnimationDescriptor& desc
     // Get motion spec from theme
     auto& motionSpec = theme_.motion_spec();
 
-    // Query duration and easing from motion token
-    int duration = motionSpec.queryDuration(desc.motionToken);
-    int easing = motionSpec.queryEasing(desc.motionToken);
-
     // Create scale animation with raw pointer (lifetime guaranteed by theme_)
     auto anim = std::make_unique<CFMaterialScaleAnimation>(&motionSpec, nullptr);
+    // Bind the motion token; the animation resolves MD3 duration + easing from
+    // the spec itself in start(), so no eager query is needed here.
+    anim->setMotionToken(desc.motionToken);
     anim->setRange(desc.fromValue, desc.toValue);
     anim->setTargetFps(targetFps_);
     if (widget) {

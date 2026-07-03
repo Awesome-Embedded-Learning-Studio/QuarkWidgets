@@ -52,12 +52,8 @@ void CFMaterialSlideAnimation::start(Direction dir) {
     // Store original position
     originalPosition_ = targetWidget_->pos();
 
-    // Get duration from motion spec if available
-    if (motion_spec_) {
-        // Duration would be queried from the motion token name
-        // For now, use default based on direction
-        durationMs_ = 300; // mediumEnter default
-    }
+    // Resolve MD3 duration + easing from the bound motion token (if any).
+    resolveMotionTiming(durationMs_);
 
     elapsedTime_ = 0;
     m_state = State::Running;
@@ -206,9 +202,9 @@ QPoint CFMaterialSlideAnimation::calculateOffsetPoint(float offset) const {
 }
 
 float CFMaterialSlideAnimation::calculateEasedProgress(float linearProgress) const {
-    // For now, use simple linear easing
-    // TODO: Integrate with MaterialMotionScheme for proper easing curves
-    return linearProgress;
+    // easingCurve_ defaults to Linear; start() resolves it from the bound
+    // motion token (e.g. EmphasizedDecelerate for "mediumEnter").
+    return static_cast<float>(easingCurve_.valueForProgress(linearProgress));
 }
 
 } // namespace qw::components::material

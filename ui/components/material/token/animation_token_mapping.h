@@ -53,7 +53,7 @@ struct AnimationTokenMapping {
     /// Animation type: "fade", "slide", "scale", "rotate"
     const char* animationType;
 
-    /// Motion spec token: e.g., "md.motion.shortEnter"
+    /// Motion spec token: e.g., "shortEnter"
     const char* motionToken;
 
     /// Property to animate: "opacity", "positionX", "positionY", "scale"
@@ -111,7 +111,7 @@ inline constexpr AnimationTokenMapping TOKEN_MAPPINGS[] = {
     {
         ANIMATION_FADE_IN,      // "md.animation.fadeIn"
         "fade",                 // Animation type
-        "md.motion.shortEnter", // Motion spec (200ms, EmphasizedDecelerate)
+        "shortEnter", // Motion spec (200ms, EmphasizedDecelerate)
         "opacity",              // Property to animate
         0.0f,                   // Start value (transparent)
         1.0f                    // End value (fully visible)
@@ -119,7 +119,7 @@ inline constexpr AnimationTokenMapping TOKEN_MAPPINGS[] = {
     {
         ANIMATION_FADE_OUT,    // "md.animation.fadeOut"
         "fade",                // Animation type
-        "md.motion.shortExit", // Motion spec (150ms, EmphasizedAccelerate)
+        "shortExit", // Motion spec (150ms, EmphasizedAccelerate)
         "opacity",             // Property to animate
         1.0f,                  // Start value (fully visible)
         0.0f                   // End value (transparent)
@@ -131,7 +131,7 @@ inline constexpr AnimationTokenMapping TOKEN_MAPPINGS[] = {
     {
         ANIMATION_SLIDE_UP,      // "md.animation.slideUp"
         "slide",                 // Animation type
-        "md.motion.mediumEnter", // Motion spec (300ms, EmphasizedDecelerate)
+        "mediumEnter", // Motion spec (300ms, EmphasizedDecelerate)
         "positionY",             // Property to animate
         100.0f,                  // Start value (offset downward)
         0.0f                     // End value (normal position)
@@ -139,7 +139,7 @@ inline constexpr AnimationTokenMapping TOKEN_MAPPINGS[] = {
     {
         ANIMATION_SLIDE_DOWN,   // "md.animation.slideDown"
         "slide",                // Animation type
-        "md.motion.mediumExit", // Motion spec (250ms, EmphasizedAccelerate)
+        "mediumExit", // Motion spec (250ms, EmphasizedAccelerate)
         "positionY",            // Property to animate
         0.0f,                   // Start value (normal position)
         100.0f                  // End value (offset downward)
@@ -147,7 +147,7 @@ inline constexpr AnimationTokenMapping TOKEN_MAPPINGS[] = {
     {
         ANIMATION_SLIDE_LEFT,    // "md.animation.slideLeft"
         "slide",                 // Animation type
-        "md.motion.mediumEnter", // Motion spec (300ms, EmphasizedDecelerate)
+        "mediumEnter", // Motion spec (300ms, EmphasizedDecelerate)
         "positionX",             // Property to animate
         100.0f,                  // Start value (offset right)
         0.0f                     // End value (normal position)
@@ -155,7 +155,7 @@ inline constexpr AnimationTokenMapping TOKEN_MAPPINGS[] = {
     {
         ANIMATION_SLIDE_RIGHT,   // "md.animation.slideRight"
         "slide",                 // Animation type
-        "md.motion.mediumEnter", // Motion spec (300ms, EmphasizedDecelerate)
+        "mediumEnter", // Motion spec (300ms, EmphasizedDecelerate)
         "positionX",             // Property to animate
         -100.0f,                 // Start value (offset left)
         0.0f                     // End value (normal position)
@@ -167,7 +167,7 @@ inline constexpr AnimationTokenMapping TOKEN_MAPPINGS[] = {
     {
         ANIMATION_SCALE_UP,     // "md.animation.scaleUp"
         "scale",                // Animation type
-        "md.motion.shortEnter", // Motion spec (200ms, EmphasizedDecelerate)
+        "shortEnter", // Motion spec (200ms, EmphasizedDecelerate)
         "scale",                // Property to animate
         0.8f,                   // Start value (smaller)
         1.0f                    // End value (normal size)
@@ -175,7 +175,7 @@ inline constexpr AnimationTokenMapping TOKEN_MAPPINGS[] = {
     {
         ANIMATION_SCALE_DOWN,  // "md.animation.scaleDown"
         "scale",               // Animation type
-        "md.motion.shortExit", // Motion spec (150ms, EmphasizedAccelerate)
+        "shortExit", // Motion spec (150ms, EmphasizedAccelerate)
         "scale",               // Property to animate
         1.0f,                  // Start value (normal size)
         0.8f                   // End value (smaller)
@@ -187,7 +187,7 @@ inline constexpr AnimationTokenMapping TOKEN_MAPPINGS[] = {
     {
         ANIMATION_ROTATE_IN,     // "md.animation.rotateIn"
         "rotate",                // Animation type
-        "md.motion.mediumEnter", // Motion spec (300ms, EmphasizedDecelerate)
+        "mediumEnter", // Motion spec (300ms, EmphasizedDecelerate)
         "rotation",              // Property to animate
         -45.0f,                  // Start value (rotated counter-clockwise)
         0.0f                     // End value (normal rotation)
@@ -195,7 +195,7 @@ inline constexpr AnimationTokenMapping TOKEN_MAPPINGS[] = {
     {
         ANIMATION_ROTATE_OUT,   // "md.animation.rotateOut"
         "rotate",               // Animation type
-        "md.motion.mediumExit", // Motion spec (250ms, EmphasizedAccelerate)
+        "mediumExit", // Motion spec (250ms, EmphasizedAccelerate)
         "rotation",             // Property to animate
         0.0f,                   // Start value (normal rotation)
         45.0f                   // End value (rotated clockwise)
@@ -256,7 +256,7 @@ inline constexpr size_t TOKEN_MAPPING_COUNT =
  * const auto* mapping = findTokenMapping("md.animation.fadeIn");
  * if (mapping) {
  *     // mapping->animationType == "fade"
- *     // mapping->motionToken == "md.motion.shortEnter"
+ *     // mapping->motionToken == "shortEnter"
  *     // mapping->property == "opacity"
  *     // mapping->defaultFrom == 0.0f
  *     // mapping->defaultTo == 1.0f
