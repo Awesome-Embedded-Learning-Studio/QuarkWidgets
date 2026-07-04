@@ -28,6 +28,12 @@ add_subdirectory(models)
 
 add_library(quarkwidgets SHARED)
 
+# ABI version export: bakes QUARKWIDGETS_ABI_VERSION into the .so and exposes
+# quarkwidgets_runtime_abi_version() so consumers can detect deploy-time .so
+# swaps. See mini-apps plan §ABI 防护 (运行时自检).
+target_sources(quarkwidgets PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/quarkwidgets_version.cpp)
+
 set(QW_STATIC_LIBS
     qw_ui_base
     qw_ui_core
