@@ -13,6 +13,7 @@
 
 #include <QColor>
 #include <QList>
+#include <QSize>
 #include <QString>
 #include <QWidget>
 
@@ -50,6 +51,11 @@ class LedPanel : public QWidget {
     void setShowHex(bool show);
     [[nodiscard]] bool showHex() const noexcept { return showHex_; }
 
+    // Force a fixed size on each bulb — for dense layouts (e.g. a board view
+    // with many pins). Default invalid → bulbs use QuarkBulb::sizeHint().
+    void setBulbSize(QSize size);
+    [[nodiscard]] QSize bulbSize() const noexcept { return bulbSize_; }
+
     // Forward-compat timing hook — see file header.
     void appendEdge(qint64 tUs, int pin, bool hi);
     [[nodiscard]] int edgeCount() const noexcept { return totalEdges_; }
@@ -72,6 +78,7 @@ class LedPanel : public QWidget {
     quint16 bits_ = 0;
     QColor tint_ {Colors::kBulbWarm};
     QString prefix_ {QStringLiteral("PA")};
+    QSize bulbSize_;   // invalid → QuarkBulb::sizeHint()
     bool showHex_ = true;
 
     QList<QuarkBulb*> bulbs_;

@@ -73,6 +73,12 @@ void LedPanel::setShowHex(bool show) {
     refreshHex();
 }
 
+void LedPanel::setBulbSize(QSize size) {
+    bulbSize_ = size;
+    if (!bulbSize_.isValid()) return;
+    for (auto* b : bulbs_) b->setFixedSize(bulbSize_);
+}
+
 void LedPanel::appendEdge(qint64 tUs, int pin, bool hi) {
     edges_.append(Edge{tUs, pin, hi});
     ++totalEdges_;
@@ -94,6 +100,7 @@ void LedPanel::rebuild() {
     for (int i = 0; i < count_; ++i) {
         auto* bulb = new QuarkBulb(this);
         bulb->setColor(tint_);
+        if (bulbSize_.isValid()) bulb->setFixedSize(bulbSize_);
         auto* label = new QLabel(prefix_ + QString::number(i), this);
         label->setFont(monoFont(9));
         if (orient_ == Qt::Vertical) {
