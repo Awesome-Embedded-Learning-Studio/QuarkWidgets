@@ -11,7 +11,7 @@
 
 int main(int argc, char** argv) {
     QApplication app(argc, argv);
-    QLabel label(QStringLiteral("QuarkWidgets %1 (skeleton)").arg(QuarkWidgets::version()));
+    QLabel label(QStringLiteral("QuarkWidgets %1 (skeleton)").arg(quark::version()));
     label.setAlignment(Qt::AlignCenter);
     label.show();
     return app.exec();

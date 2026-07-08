@@ -5,3 +5,9 @@ add_executable(quarkwidgets_example
     quarkwidgets_example.cpp
 )
 target_link_libraries(quarkwidgets_example PRIVATE QuarkWidgets)
+
+# One bulb auto-toggling — minimal QuarkBulb demo.
+add_executable(bulb_example
+    bulb_example.cpp
+)
+target_link_libraries(bulb_example PRIVATE QuarkWidgets)

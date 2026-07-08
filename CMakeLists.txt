@@ -24,6 +24,8 @@ set(CMAKE_AUTOMOC ON)
 # real widgets (QuarkBulb, LedPanel, UartTerminalView) are appended to the list.
 add_library(QuarkWidgets STATIC
     src/quarkwidgets.cpp
+    src/QuarkBulb.cpp
+    include/QuarkWidgets/QuarkBulb.hpp   # Q_OBJECT → list header so AUTOMOC reliably scans it
 )
 add_library(QuarkWidgets::QuarkWidgets ALIAS QuarkWidgets)
 
@@ -47,4 +49,13 @@ option(QUARKWIDGETS_BUILD_EXAMPLES "Build QuarkWidgets standalone example apps"
        ${PROJECT_IS_TOP_LEVEL})
 if(QUARKWIDGETS_BUILD_EXAMPLES)
     add_subdirectory(examples)
+endif()
+
+# Self-tests (QTest). Standalone only — host projects that add_subdirectory us
+# get no QuarkWidgets tests in their own ctest (keeps their test count stable).
+option(QUARKWIDGETS_BUILD_TESTS "Build QuarkWidgets self-tests"
+       ${PROJECT_IS_TOP_LEVEL})
+if(QUARKWIDGETS_BUILD_TESTS)
+    enable_testing()
+    add_subdirectory(test)
 endif()

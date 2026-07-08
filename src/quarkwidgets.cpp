@@ -4,10 +4,10 @@
 // added next to this file and appended to the CMake source list.
 #include "QuarkWidgets/quarkwidgets.hpp"
 
-namespace QuarkWidgets {
+namespace quark {
 
 QString version() {
     return QString::fromLatin1(kVersion);
 }
 
-}  // namespace QuarkWidgets
+}  // namespace quark

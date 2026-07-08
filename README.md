@@ -1,6 +1,6 @@
 # QuarkWidgets
 
-QuarkWidgets is a reusable Qt component library serving as the unified UI
+QuarkWidgets is a reusable Qt6 Widgets component library — the unified UI
 foundation across Awesome Embedded Learning Studio projects (micro-forge,
 TAMCPP, …).
 
@@ -9,24 +9,35 @@ TAMCPP, …).
 - **Pure Qt.** Zero host-app dependencies. Widgets take plain Qt data
   (`setState(bool)`, `appendText(QString)`, …); they never reference consumer
   types (`snapshot` / `EventBus` / `GpioEdge` / …). Consumers write the adapter.
-- **No QSS.** Theming via `QPalette` + C++ constant tokens (`Colors::bg`,
-  `Metrics::pad`); custom widgets self-draw with `QPainter`.
-- **C++23, Qt6 Widgets.**
+- **No QSS.** Theming via `QPalette` + C++ constant tokens
+  (`quark::Colors::kBg`, `quark::Metrics::kPad`); custom widgets self-draw with
+  `QPainter`.
+- **C++23, Qt6 Widgets.** Namespace `quark` (short; the include dir stays
+  `QuarkWidgets/`).
 
 ## Layout
 
 ```
-include/QuarkWidgets/   public headers (one per widget)
+include/QuarkWidgets/   public headers (one per widget + Theme.hpp)
 src/                    widget implementations
 examples/               minimal standalone apps (one per widget)
-test/                   self-tests
+test/                   QTest self-tests
 ```
+
+## Widgets
+
+- **QuarkBulb** — a self-drawn incandescent indicator. Three QPainter layers:
+  radial-gradient glow, glass bulb with a specular highlight, zigzag filament.
+  API: `setState(bool)` / `setColor(QColor)` / `setBrightness(qreal 0..1)`.
+- *Planned:* LedPanel (a row of QuarkBulbs + pin labels + ODR hex readout),
+  UartTerminalView (monospace scrolling terminal).
 
 ## Build standalone
 
 ```sh
 cmake -B build -S .
 cmake --build build -j$(nproc)
+ctest --test-dir build --output-on-failure   # QTest + dumps render PNGs
 ```
 
 ## Consume from another project (dev: local path)
@@ -36,11 +47,7 @@ add_subdirectory("${QUARKWIDGETS_ROOT}" "${CMAKE_BINARY_DIR}/quarkwidgets-build"
 target_link_libraries(your-app PRIVATE QuarkWidgets)
 ```
 
-When consumed via `add_subdirectory`, standalone examples are off
-(`PROJECT_IS_TOP_LEVEL` is false). For release/CI, swap the local path for a
-proper `git submodule` under `third_party/QuarkWidgets`.
-
-## Status
-
-B0 skeleton — library scaffolding + version probe only. First widget
-`QuarkBulb` lands next.
+When consumed via `add_subdirectory`, standalone examples + tests are off
+(`PROJECT_IS_TOP_LEVEL` is false), so they never pollute the host's ctest. For
+release/CI, swap the local path for a proper `git submodule` under
+`third_party/QuarkWidgets`.
