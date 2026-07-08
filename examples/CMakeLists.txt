@@ -1,0 +1,7 @@
+# One minimal standalone app per concern — proves the library links & runs.
+# Built only for standalone QuarkWidgets builds (QUARKWIDGETS_BUILD_EXAMPLES,
+# defaulting to PROJECT_IS_TOP_LEVEL; see root CMakeLists.txt).
+add_executable(quarkwidgets_example
+    quarkwidgets_example.cpp
+)
+target_link_libraries(quarkwidgets_example PRIVATE QuarkWidgets)
