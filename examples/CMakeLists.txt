@@ -11,3 +11,9 @@ add_executable(bulb_example
     bulb_example.cpp
 )
 target_link_libraries(bulb_example PRIVATE QuarkWidgets)
+
+# An 8-LED panel cycling its ODR bitmask.
+add_executable(ledpanel_example
+    ledpanel_example.cpp
+)
+target_link_libraries(ledpanel_example PRIVATE QuarkWidgets)

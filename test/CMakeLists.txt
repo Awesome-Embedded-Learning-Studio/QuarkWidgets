@@ -6,6 +6,11 @@ find_package(Qt6 REQUIRED COMPONENTS Test)
 add_executable(test_quarkbulb test_quarkbulb.cpp)
 target_link_libraries(test_quarkbulb PRIVATE QuarkWidgets Qt6::Test)
 add_test(NAME test_quarkbulb COMMAND test_quarkbulb)
-# Headless: render the widget offscreen (no X server needed).
-set_tests_properties(test_quarkbulb PROPERTIES
+
+add_executable(test_ledpanel test_ledpanel.cpp)
+target_link_libraries(test_ledpanel PRIVATE QuarkWidgets Qt6::Test)
+add_test(NAME test_ledpanel COMMAND test_ledpanel)
+
+# Headless: render the widgets offscreen (no X server needed).
+set_tests_properties(test_quarkbulb test_ledpanel PROPERTIES
     ENVIRONMENT QT_QPA_PLATFORM=offscreen)
