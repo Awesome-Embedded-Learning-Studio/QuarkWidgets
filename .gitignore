@@ -1,6 +1,19 @@
+# build directories
 build/
 build-*/
+out/
+.cache/
+.ccache/
 *-build/
+
+# Qt / CMake user files
 *.user
 *.user.*
 CMakeUserPresets.json
+
+# editor / IDE
+.vscode/
+
+# python
+__pycache__/
+.venv/
