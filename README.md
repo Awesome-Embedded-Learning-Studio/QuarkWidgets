@@ -29,8 +29,17 @@ test/                   QTest self-tests
 - **QuarkBulb** — a self-drawn incandescent indicator. Three QPainter layers:
   radial-gradient glow, glass bulb with a specular highlight, zigzag filament.
   API: `setState(bool)` / `setColor(QColor)` / `setBrightness(qreal 0..1)`.
-- *Planned:* LedPanel (a row of QuarkBulbs + pin labels + ODR hex readout),
-  UartTerminalView (monospace scrolling terminal).
+- **LedPanel** — a row/column of QuarkBulbs driven by a bitmask, with pin
+  labels and an ODR-hex readout. Composes QuarkBulb children (no custom
+  paintEvent). API: `setLevels(quint16)` / `setColor` / `setCount` (≤16) /
+  `setOrientation` / `setBulbSize`. `appendEdge(t_us, pin, hi)` is a
+  forward-compat timing hook for a future LedTimingView — edges are *recorded*
+  into a ring but not rendered by this static panel.
+- **UartTerminalView** — a monospace scrolling serial terminal with an RX/TX
+  byte-counter status bar (auto-scroll toggle + Clear). Composes a read-only
+  QPlainTextEdit driven by font + palette (no QSS). API: `appendText(QString)` /
+  `appendByte(uint8_t)` (non-printables render as `\xNN`) / `appendByte(t_us, b,
+  Dir)` (records a directed-protocol ring for a future annotated view).
 
 ## Build standalone
 
