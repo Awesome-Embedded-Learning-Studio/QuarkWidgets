@@ -4,22 +4,22 @@
 add_executable(quarkwidgets_example
     quarkwidgets_example.cpp
 )
-target_link_libraries(quarkwidgets_example PRIVATE QuarkWidgets)
+target_link_libraries(quarkwidgets_example PRIVATE QuarkWidgetsEmbedded)
 
 # One bulb auto-toggling — minimal QuarkBulb demo.
 add_executable(bulb_example
     bulb_example.cpp
 )
-target_link_libraries(bulb_example PRIVATE QuarkWidgets)
+target_link_libraries(bulb_example PRIVATE QuarkWidgetsEmbedded)
 
 # An 8-LED panel cycling its ODR bitmask.
 add_executable(ledpanel_example
     ledpanel_example.cpp
 )
-target_link_libraries(ledpanel_example PRIVATE QuarkWidgets)
+target_link_libraries(ledpanel_example PRIVATE QuarkWidgetsEmbedded)
 
 # A serial terminal fed by a simulated UART stream (RX lines + TX acks).
 add_executable(uartterminal_example
     uartterminal_example.cpp
 )
-target_link_libraries(uartterminal_example PRIVATE QuarkWidgets)
+target_link_libraries(uartterminal_example PRIVATE QuarkWidgetsEmbedded)
