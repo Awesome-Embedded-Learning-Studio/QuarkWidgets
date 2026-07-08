@@ -17,3 +17,9 @@ add_executable(ledpanel_example
     ledpanel_example.cpp
 )
 target_link_libraries(ledpanel_example PRIVATE QuarkWidgets)
+
+# A serial terminal fed by a simulated UART stream (RX lines + TX acks).
+add_executable(uartterminal_example
+    uartterminal_example.cpp
+)
+target_link_libraries(uartterminal_example PRIVATE QuarkWidgets)

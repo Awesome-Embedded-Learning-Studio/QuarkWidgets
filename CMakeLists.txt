@@ -26,8 +26,10 @@ add_library(QuarkWidgets STATIC
     src/quarkwidgets.cpp
     src/QuarkBulb.cpp
     src/LedPanel.cpp
-    include/QuarkWidgets/QuarkBulb.hpp   # Q_OBJECT → list header so AUTOMOC reliably scans it
-    include/QuarkWidgets/LedPanel.hpp    # (same — LedPanel also has Q_OBJECT)
+    src/UartTerminalView.cpp
+    include/QuarkWidgets/QuarkBulb.hpp        # Q_OBJECT → list header so AUTOMOC reliably scans it
+    include/QuarkWidgets/LedPanel.hpp         # (same — LedPanel also has Q_OBJECT)
+    include/QuarkWidgets/UartTerminalView.hpp # (same — UartTerminalView also has Q_OBJECT)
 )
 add_library(QuarkWidgets::QuarkWidgets ALIAS QuarkWidgets)
 
