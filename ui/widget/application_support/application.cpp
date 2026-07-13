@@ -88,6 +88,12 @@ void Application::setAnimationsEnabled(bool enabled) {
     }
 }
 
+void Application::setAnimationFrameRate(float fps) {
+    if (animationFactory_) {
+        animationFactory_->setTargetFps(fps);
+    }
+}
+
 bool Application::animationsEnabled() const {
     return animationFactory_ ? animationFactory_->isAllEnabled() : false;
 }

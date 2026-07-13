@@ -394,7 +394,7 @@ class QW_EXPORT CFMaterialAnimationFactory : public ICFAnimationManagerFactory {
      * factory->setTargetFps(120.0f);  // 120 FPS (smoother animation)
      * @endcode
      */
-    void setTargetFps(const float fps);
+    void setTargetFps(const float fps) override;
 
     /**
      * @brief  Get the associated theme.

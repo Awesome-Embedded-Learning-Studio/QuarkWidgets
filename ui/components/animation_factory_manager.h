@@ -219,7 +219,7 @@ class QW_EXPORT ICFAnimationManagerFactory : public QObject {
      * manager->setTargetFps(60.0f);  // 60 FPS
      * @endcode
      */
-    void setTargetFps(const float fps);
+    virtual void setTargetFps(float fps) { (void)fps; }
 
     /**
      * @brief  Set enabled state for a specific animation.

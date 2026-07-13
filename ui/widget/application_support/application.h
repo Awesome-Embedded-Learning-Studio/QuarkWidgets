@@ -236,6 +236,31 @@ class QW_EXPORT Application : public QApplication {
     void setAnimationsEnabled(bool enabled);
 
     /**
+     * @brief  Set the global target frame rate for animations.
+     *
+     * @details Forwards to the animation factory's setTargetFps, retuning every
+     *          animation (running and future) to @p fps. On slow software-
+     *          rendered targets (e.g. a single Cortex-A7 on linuxfb) lowering
+     *          this from the 60fps default to a rate the hardware can sustain
+     *          (24-30fps) gives each frame a realizable budget and greatly
+     *          reduces jank — motion stays, just at a lower cadence.
+     *
+     * @param[in]     fps Target frames per second (> 0).
+     *
+     * @throws        None
+     * @note          No-op if the animation factory has no frame-rate concept.
+     * @warning       None
+     * @since         0.1
+     * @ingroup       ui_widget_application_support
+     *
+     * @code
+     * // Low-tier device: cap animations to a sustainable cadence
+     * Application::setAnimationFrameRate(30.0f);
+     * @endcode
+     */
+    void setAnimationFrameRate(float fps);
+
+    /**
      * @brief  Check if animations are globally enabled.
      *
      * @return true if animations are enabled, false otherwise.
